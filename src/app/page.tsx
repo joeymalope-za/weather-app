@@ -14,9 +14,6 @@ export default function Home() {
 
   const [unauthorized, setUnauthorized] = useState('');
   useEffect(() => {
-    if(AuthorisationStatus === "Unauthorized" ){
-      console.log('AuthorisationStatus', AuthorisationStatus);
-    }
 
     testConnection().catch((err: any) => {
       console.log(err);
@@ -25,7 +22,6 @@ export default function Home() {
     if(cities.length === 0)
     getCitiesWeather().then((data: any) => {
       setCities(data);
-      console.log(data);
       setCurrentCity(data[0]);
     })
   }, [])
@@ -41,8 +37,7 @@ export default function Home() {
     if(unauthorized !== 'OK'){
       throw new Error('You have an Unauthorized API key. Please check your API key and try again. If you do not have an API key, you can get one at https://openweathermap.org/api');
     }
-    else
-    console.log('4. unauthorized', unauthorized);
+
   }, [unauthorized])
 
   return (
@@ -73,7 +68,6 @@ export default function Home() {
               return (
                 <Link href={`/city/${city?.name}-${city?.countryCode}`} key={city?.name+city?.countryCode}
                 onClick={() => {
-                  console.log(city);
                   setCurrentCity(city);
                 }}
                   className={styles.card}

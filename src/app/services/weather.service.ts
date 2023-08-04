@@ -1,6 +1,5 @@
-import { adaptToCity, adaptToCityWeatherData, adaptToCurrentWeather, adaptToWeatherData } from "../adapters/weather.adaptor";
-import {use, useContext} from "react";
-const apiKey = process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY? process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY: '' ; // Your
+import { adaptToCityWeatherData, adaptToWeatherData } from "../adapters/weather.adaptor";
+const apiKey = process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY;
 const baseUrl = 'https://api.openweathermap.org/';
 const cities = [{
     "name": 'London',
@@ -34,7 +33,6 @@ export const getCurrentWeatherByCityName = async (city: string, country: string)
 
 export const testConnection = async () => {
         const res = await fetch(`${baseUrl}/data/2.5/weather?q=London,uk&appid=${apiKey}`);
-        console.log("testConnection:",res);
         return res.statusText;
 }
 
@@ -123,7 +121,7 @@ export const getForecastDateList = (forecast: any) => {
     return newList;
 } 
 
-function timezoneToGMT(timezone: number): string {
+export function timezoneToGMT(timezone: number): string {
     const hours = Math.floor(timezone / 3600);
     return `GMT${hours >= 0 ? '+' : ''}${hours}`;
 }

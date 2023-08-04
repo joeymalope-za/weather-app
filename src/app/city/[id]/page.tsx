@@ -5,8 +5,6 @@ import { useEffect, useState } from "react";
 import styles from "../../page.module.css";
 import Link from "next/link";
 import Image from "next/image";
-import { get } from "http";
-import { City, ForecastDay, coord } from "@/app/domain/Weather";
 
 export default function Page(param: any) {
   const [city, setCity] = useState<any>(null);

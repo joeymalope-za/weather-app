@@ -1,62 +1,47 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Project title: Pygio Weather app
 
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-# Project Title Pygio Weather App
-
-The project is a web app that displays weather for and handpicked number of citys
+A brief, descriptive title that accurately reflects the content of the project.
 
 ## Introduction
 
-A brief overview of the project, its purpose, and its intended audience.
+This is a Weather Forecasting App built using Next.js and the OpenWeatherMap API It fetches data from the API and displays weather forecast information.
+
+## OpenWeather API
+
+1. Create a new account.
+2. Subscribe to the _Current Weather Data_ and _5 Day / 3 Hour Forecast_
 
 ## Getting Started
 
-Instructions on how to set up and install the project, including any necessary dependencies.
+1. git clone https://github.com/joeymalope-za/weather-app.git
+2. cd weather-app
+3. npm install
+4. touch next.config.js
+5. Open the next.config.js and update the API key
+
+## Setup API key on next.config.js
+
+/\*_ @type {import('next').NextConfig} _/
+const nextConfig = {
+reactStrictMode: true,
+images: {
+domains: ['openweathermap.org','webartdevelopers.com'],
+},
+env: {
+NEXT_PUBLIC_OPEN_WEATHER_API_KEY: '',
+},
+}
+
+module.exports = nextConfig
 
 ## Usage
 
-A detailed explanation of how to use the project, including any necessary configuration steps and examples of common tasks.
-
-## Contributing
-
-Information on how others can contribute to the project, including guidelines for submitting issues and pull requests.
+start project -> npm run dev
 
 ## Credits
 
-A list of any individuals or organizations that have contributed to the project.
+This project was built using the OpenWeatherMap API.
 
 ## License
 
-Information on the licensing terms for the project, including any relevant copyright or attribution notices.
+This project is licensed under the terms of the MIT License.
