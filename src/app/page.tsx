@@ -1,95 +1,103 @@
+"use client"
 import Image from 'next/image'
 import styles from './page.module.css'
+import { useEffect, useState, useContext, use } from 'react';
+import { getCitiesWeather, getTemperatureAsCelsius, testConnection} from './services/weather.service';
+import Link from 'next/link';
+import ErrorBoundary from './ErrorBoundary';
+import { globalStateContext } from './context/globalState.context';
 
 export default function Home() {
+  const [cities, setCities] = useState([])
+  const [currentCity, setCurrentCity] = useState<any>(null)
+  const AuthorisationStatus = useContext<any>(globalStateContext);
+
+  const [unauthorized, setUnauthorized] = useState('');
+  useEffect(() => {
+    if(AuthorisationStatus === "Unauthorized" ){
+      console.log('AuthorisationStatus', AuthorisationStatus);
+    }
+
+    testConnection().catch((err: any) => {
+      console.log(err);
+    })
+
+    if(cities.length === 0)
+    getCitiesWeather().then((data: any) => {
+      setCities(data);
+      console.log(data);
+      setCurrentCity(data[0]);
+    })
+  }, [])
+
+  useEffect(() => {
+    AuthorisationStatus.then((data: any) => {
+      let temp = data.AuthorisationStatus;
+      setUnauthorized(temp);
+    })
+  }, [AuthorisationStatus])
+
+  useEffect(() => {
+    if(unauthorized === 'Unauthorized'){
+      console.log('5. unauthorized', unauthorized);
+      throw new Error('You have an Unauthorized API key. Please check your API key and try again. If you do not have an API key, you can get one at https://openweathermap.org/api');
+    }
+    else
+    console.log('4. unauthorized', unauthorized);
+  }, [unauthorized])
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
+    <ErrorBoundary>
+      <main className={styles.main}>
+        <div className={styles.content}>
+      { currentCity && <div className={styles.center}>
+            <h1 className={styles.currentCityName}>
+              {currentCity?.city?.name} <br/>
+            </h1>
+            <p>
+              {new Date().toDateString()}
+            </p>
+            <h2 className={styles.currentCityTemp}>
+              {getTemperatureAsCelsius(currentCity?.data?.temp)}°C <br/>
+            </h2>
+            <h3 className={styles.currentWeatherDescription}>
+              {currentCity?.data?.description.toUpperCase()}
+            </h3>
+          </div>}
         <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+          <h1> Cities
+          </h1>
+          <div className={styles.grid} >
+            {cities.length > 0 && cities.map((weatherData: any) =>{
+              const {city, data} = weatherData;
+
+              return (
+                <Link href={`/city/${city?.name}-${city?.countryCode}`} key={city?.name+city?.countryCode}
+                onClick={() => {
+                  console.log(city);
+                  setCurrentCity(city);
+                }}
+                  className={styles.card}
+                  rel="noopener noreferrer"
+                >
+                  <h1 className={styles.temp}>
+                    {getTemperatureAsCelsius(data.temp)}°C <br/>
+                  </h1>
+                  <h2>
+                    {city?.name} <br/>
+                  </h2>
+                  <h3>
+                    {data.label}
+                  </h3>
+                  <p>{data.label}, {data.description}</p>
+                  <span><Image src={`https://openweathermap.org/img/wn/${data.icon}@2x.png`} alt={''} width={32} height={32}/></span>
+                </Link>
+                )
+            })}
+          </div>
+          </div>
         </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+      </main>
+    </ErrorBoundary>
   )
 }

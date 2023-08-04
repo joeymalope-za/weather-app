@@ -32,3 +32,31 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+# Project Title Pygio Weather App
+
+A brief, descriptive title that accurately reflects the content of the project.
+
+## Introduction
+
+A brief overview of the project, its purpose, and its intended audience.
+
+## Getting Started
+
+Instructions on how to set up and install the project, including any necessary dependencies.
+
+## Usage
+
+A detailed explanation of how to use the project, including any necessary configuration steps and examples of common tasks.
+
+## Contributing
+
+Information on how others can contribute to the project, including guidelines for submitting issues and pull requests.
+
+## Credits
+
+A list of any individuals or organizations that have contributed to the project.
+
+## License
+
+Information on the licensing terms for the project, including any relevant copyright or attribution notices.
