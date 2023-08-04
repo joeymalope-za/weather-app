@@ -7,7 +7,7 @@ export default function error({ error, reset}:{error: Error, reset: () => void})
     <main className={styles.main}>
         <div className={styles.content}>
             <h1 className={styles.title}>
-                We're experiencing some technical difficulties. Please try again later.
+                We&apos;re experiencing some technical difficulties. Please try again later.
             </h1>
             <p className={styles.description}>
               Please refrain from doing anything hasty. {error.message}

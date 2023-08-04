@@ -5,13 +5,16 @@ import { useEffect, useState } from "react";
 import styles from "../../page.module.css";
 import Link from "next/link";
 import Image from "next/image";
+import { get } from "http";
+import { City, ForecastDay, coord } from "@/app/domain/Weather";
 
 export default function Page(param: any) {
-  const [city, setCity] = useState(null);
+  const [city, setCity] = useState<any>(null);
   const [cityName, countryCode] = param.params.id.split('-');
   const [days, setDays] = useState([]);
-  const [currentDay, setCurrentDay] = useState(null);
+  const [currentDay, setCurrentDay] = useState<any>(null);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const getFullCityWeather = async (cityName: any, countryCode: any) => {
      await getCurrentWeatherByCityName(cityName, countryCode).then((data: any) => {
         setCity(data);
@@ -33,12 +36,11 @@ export default function Page(param: any) {
             }
         })
     }
-  }, [city]);
+  }, [city, cityName, countryCode, getFullCityWeather ]);
 
   useEffect(() => {
     if(days.length > 0){
       setCurrentDay(days[0]);
-      console.log("currentDay: ", currentDay);
     }
   }, [days]);
 
@@ -60,7 +62,7 @@ export default function Page(param: any) {
 
                   <div className={styles.hourWeatherBox}>
                     {
-                    days?.length > 0  && currentDay?.times.map((time)=><div className={styles.hourWeatherItem} key={time?.time}>
+                    days?.length > 0  && currentDay?.times.map((time:any)=><div className={styles.hourWeatherItem} key={time?.time}>
                       <span className={styles.temp}>
                       {getTemperatureAsCelsius(city?.main.feels_like)}°C
                       </span><br />

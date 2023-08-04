@@ -35,7 +35,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 # Project Title Pygio Weather App
 
-A brief, descriptive title that accurately reflects the content of the project.
+The project is a web app that displays weather for and handpicked number of citys
 
 ## Introduction
 
