@@ -5,7 +5,7 @@ const nextConfig = {
         domains: ['openweathermap.org','webartdevelopers.com'],
     },
     env: {
-        NEXT_PUBLIC_OPEN_WEATHER_API_KEY: '589145f773fe588b9fccb3c0ec5da26b',
+        NEXT_PUBLIC_OPEN_WEATHER_API_KEY: '65159de347325d396266fb7fbfd42fc1',
     },
 }
 

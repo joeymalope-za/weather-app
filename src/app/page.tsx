@@ -38,8 +38,7 @@ export default function Home() {
   }, [AuthorisationStatus])
 
   useEffect(() => {
-    if(unauthorized === 'Unauthorized'){
-      console.log('5. unauthorized', unauthorized);
+    if(unauthorized !== 'OK'){
       throw new Error('You have an Unauthorized API key. Please check your API key and try again. If you do not have an API key, you can get one at https://openweathermap.org/api');
     }
     else

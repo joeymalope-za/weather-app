@@ -58,7 +58,7 @@ export const convertTo12Hour = (time: string): string => {
 }
 
 //getForecastWeatherforNextFiveDays()
-export const getForecastWeather = async (lat: number, lon: number) => {
+export const getForecastWeatherforNextFiveDays = async (lat: number, lon: number) => {
     if(lat === undefined || lon === undefined) return console.log("lat or lon is undefined");
 
     try {
@@ -66,7 +66,6 @@ export const getForecastWeather = async (lat: number, lon: number) => {
         const data = await res.json();
         return (getForecastDateList(data));
     } catch (err) {
-//        return console.log(err);
         throw new Error('Error fetching forecast data');
 
     }
@@ -129,6 +128,5 @@ function timezoneToGMT(timezone: number): string {
     return `GMT${hours >= 0 ? '+' : ''}${hours}`;
 }
 
-console.log(timezoneToGMT(3600));  // Outputs "GMT+1"
 
 

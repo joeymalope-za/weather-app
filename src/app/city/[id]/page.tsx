@@ -1,6 +1,6 @@
 "use client"
 import { ForecastedDays } from "@/app/components/ForecastedDays"; 
-import { getCurrentWeatherByCityName, getTemperatureAsCelsius,DAYS, getForecastWeather, convertTo12Hour } from "@/app/services/weather.service";
+import { getCurrentWeatherByCityName, getTemperatureAsCelsius,DAYS, getForecastWeatherforNextFiveDays, convertTo12Hour } from "@/app/services/weather.service";
 import { useEffect, useState } from "react";
 import styles from "../../page.module.css";
 import Link from "next/link";
@@ -26,17 +26,16 @@ export default function Page(param: any) {
   useEffect(() => {
     if(city === null)
       getFullCityWeather(cityName,countryCode);
-    else{
+    
+    if(days.length === 0){
       const {coord} = city;
-      console.log("city: ", city);
-        getForecastWeather(coord?.lat, coord?.lon).then((data: any) => {
-            console.log("data: ", data);
+        getForecastWeatherforNextFiveDays(coord?.lat, coord?.lon).then((data: any) => {
             if(data){
                 setDays(data);
             }
         })
     }
-  }, [city, cityName, countryCode, getFullCityWeather ]);
+  }, [city, cityName, countryCode, getFullCityWeather, days ]);
 
   useEffect(() => {
     if(days.length > 0){

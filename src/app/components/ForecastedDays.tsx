@@ -1,18 +1,8 @@
-import { use, useEffect,useState } from 'react';
 import styles from '../page.module.css';
 import { DAYS, getTemperatureAsCelsius} from '../services/weather.service';
 import Image from 'next/image';
 
-
-
 export function ForecastedDays({days, setCurrentDay}: any) {
-
-    useEffect(
-        () => {
-            console.log("days: ", days);
-        }
-    , [days]
-    )
 
     return (<>
         {days?.length > 0 && days.map((day:any)=>
@@ -22,9 +12,9 @@ export function ForecastedDays({days, setCurrentDay}: any) {
                 <span>
                     {DAYS[new Date(day?.date).getDay()]} 
                 </span>
-                <span>{getTemperatureAsCelsius(day?.times[0].data.temp)}°C  / { getTemperatureAsCelsius(day?.times[0].data.temp)}°C </span>
+                <span>{getTemperatureAsCelsius(day?.times[0].data.temp)}°C  / { getTemperatureAsCelsius(day?.times[day?.times.length - 1].data.temp)}°C </span>
             </div>
         </div>)}
-    </>);
+        </>);
 }
 
