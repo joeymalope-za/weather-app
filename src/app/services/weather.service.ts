@@ -1,7 +1,7 @@
 import { adaptToCity, adaptToCityWeatherData, adaptToCurrentWeather, adaptToWeatherData } from "../adapters/weather.adaptor";
 import {use, useContext} from "react";
 const apiKey = process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY? process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY: '' ; // Your
-const baseUrl = 'http://api.openweathermap.org/';
+const baseUrl = 'https://api.openweathermap.org/';
 const cities = [{
     "name": 'London',
     "country": 'uk'
